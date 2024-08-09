@@ -43,4 +43,5 @@ jobs:
         script: |
           rm -rf /home/ubuntu/action-test
           git clone https://github.com/ohgyulim/action-test.git
+          bash /home/ubuntu/deployment.sh
           
