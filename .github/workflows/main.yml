@@ -24,3 +24,23 @@ jobs:
         cd test
         chmod +x ./gradlew
         ./gradlew build
+    - name: copy file via ssh
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.REMOTE_PORT }}
+        source: "test/build/libs/test-0.0.1-SNAPSHOT.jar"
+        target: "test-0.0.1-SNAPSHOT.jar"
+    - name: restart spring project
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.REMOTE_PORT }}
+        script: |
+          rm -rf /home/ubuntu/action-test
+          git clone https://github.com/ohgyulim/action-test.git
+          
