@@ -32,7 +32,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.REMOTE_PORT }}
         source: "./test/build/libs/test-0.0.1-SNAPSHOT.jar"
-        target: "."
+        target: "/home/ubuntu"
     - name: restart spring project
       uses: appleboy/ssh-action@v1.0.3
       with:
